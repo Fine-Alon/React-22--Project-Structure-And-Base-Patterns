@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+
+# Compiled output
+dist/
+build/
+
+# Compiled JavaScript & TypeScript
+*.lock
+*.lock.*
+*.eslintrc
+*.eslintignore
+*.flowconfig
+
+# Miscellaneous
+db.json
