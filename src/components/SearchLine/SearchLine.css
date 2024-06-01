@@ -1,0 +1,54 @@
+
+svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+circle {
+    fill: none;
+    stroke: currentColor;
+}
+
+line {
+    fill: none;
+    stroke: currentColor;
+}
+
+.container_search {
+    display: flex;
+    width: 50%;
+    justify-self: flex-start
+}
+
+.input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    flex: 1;
+}
+
+.input:focus {
+    outline: black solid 1px;
+    outline-offset: -1px;
+}
+
+.button_search {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px 0 0 4px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    cursor: pointer;
+}
+
+.button_search:hover circle {
+    stroke: red;
+}
+
+.button_search:hover line {
+    stroke: red;
+}

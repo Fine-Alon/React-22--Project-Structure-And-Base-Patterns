@@ -1,8 +1,8 @@
 import {ChangeEvent, FC, KeyboardEventHandler, useState} from 'react';
-
+import './SearchLine.css'
 
 type SearchLineProps = {
-    onSearch: (value: string) => void
+    onSearch: (query: string) => void
 }
 export const SearchLine: FC<SearchLineProps> = ({onSearch}) => {
     const [value, setValue] = useState('');
@@ -12,9 +12,7 @@ export const SearchLine: FC<SearchLineProps> = ({onSearch}) => {
     };
 
     const handleSearch = () => {
-        if (value.trim()) {
-            onSearch(value);
-        }
+        onSearch(value);
     };
 
     const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {

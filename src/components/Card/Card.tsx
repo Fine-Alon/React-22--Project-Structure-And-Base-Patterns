@@ -1,4 +1,6 @@
 import {FC} from "react";
+import './Card.css'
+import {Stars} from "../Stars";
 
 type CardProps = {
     pic: string;
@@ -15,9 +17,7 @@ export const Card: FC<CardProps> = ({pic, name, country, rating}) => {
                 <h2 className="title">{name}</h2>
                 <p className="country">{country}</p>
                 <div className="rating">
-                    {[...Array(rating)].map((_, index) => (
-                        <span key={index} className="star">&#9733;</span>
-                    ))}
+                    <Stars rating={rating}/>
                 </div>
             </div>
         </div>

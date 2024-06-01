@@ -1,44 +1,38 @@
 import './styles.css'
-import {SearchLine} from "./components/SearchLine.tsx";
-import {Logo} from "./components/Logo.tsx";
-import {Avatar} from "./components/Avatar.tsx";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {getRestaurants} from "./api.ts";
+import {SearchLine} from "./components/SearchLine";
+import {Logo} from "./components/Logo";
+import {Avatar} from "./components/Avatar";
 import {Loader} from "./components/Loader";
-import {Card} from "./components/Card.tsx";
 import {nanoid} from "nanoid";
+import {Card} from "./components/Card";
+import {Rooms} from "./components/Rooms";
+import {useApp} from "./hooks/useApp.tsx";
+import {FC} from "react";
 
 
-function App() {
-    const queryClient = useQueryClient()
+const App: FC = () => {
 
-    const queryRooms = useQuery({
-        queryKey: ['rooms'],
-        queryFn: () => getRestaurants()
-    }, queryClient)
-
-    const handleSearch = (query: string) => {
-        console.log('Searching for:', query);
-        // Здесь можно выполнить действия по поиску, например, сделать запрос на сервер
-    };
-
+    const {
+        rooms, handleSearch, data
+        , isError, isPending
+    } = useApp()
 
     return (
         <>
             <header>
                 <Logo/>
-                <Avatar/>
+                <Avatar avatar={undefined}/>
             </header>
             <main>
                 <SearchLine onSearch={handleSearch}/>
-                <section>
-                    {queryRooms.isPending && <Loader/>}
-                    {queryRooms.isError && <span>Error..</span>}
-                    {queryRooms.data && queryRooms.data.map(room => <Card
-                       key={nanoid()} pic={room.url} name={room.name}
+                <Rooms>
+                    {isPending && <Loader/>}
+                    {isError && <span>Error..</span>}
+                    {data && rooms && rooms.map(room => <Card
+                        key={nanoid()} pic={room.url} name={room.name}
                         country={room.description} rating={room.raiting}/>
                     )}
-                </section>
+                </Rooms>
             </main>
             <footer>
                 <p>Privacy Policy</p>

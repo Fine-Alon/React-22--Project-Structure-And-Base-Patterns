@@ -1,0 +1,8 @@
+.room-box{
+    display: flex;
+    flex-wrap: wrap;
+    height: 60vh;
+    padding: 10px 20px;
+    justify-content: space-around;
+    align-items: center;
+}
