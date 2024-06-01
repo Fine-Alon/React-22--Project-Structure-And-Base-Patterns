@@ -18,7 +18,8 @@ line {
 .container_search {
     display: flex;
     width: 50%;
-    justify-self: flex-start
+    justify-self: flex-start;
+    margin-bottom: 70px;
 }
 
 .input {

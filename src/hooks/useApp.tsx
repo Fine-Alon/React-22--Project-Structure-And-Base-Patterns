@@ -1,18 +1,22 @@
 import {useEffect, useState} from "react";
-import {Restaurant} from "../api/api.ts";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {getRestaurants} from "../api.ts";
+import {getRestaurants, Restaurant, UpdateRestaurantRaitingArgs, updateRestaurantRating} from "../api/api.ts";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 
 export const useApp = () => {
-
     const queryClient = useQueryClient()
-
     const [rooms, setRooms] = useState<Restaurant[]>([])
 
     const {data, isError, isPending} = useQuery({
         queryKey: ['rooms'],
         queryFn: () => getRestaurants()
     }, queryClient)
+
+    const mutate = useMutation({
+        mutationKey: ['rating'],
+        mutationFn: updateRestaurantRating,
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ["rooms"]})
+    }, queryClient)
+
 
     useEffect(() => {
         data && setRooms(data)
@@ -29,6 +33,10 @@ export const useApp = () => {
         setRooms(filteredRooms)
     };
 
+    const handleRating = ({id, raiting}: UpdateRestaurantRaitingArgs) => {
+        mutate.mutate({id, raiting})
+    }
 
-    return {rooms, handleSearch, data, isError, isPending}
+
+    return {rooms, handleSearch, data, isError, isPending, handleRating}
 }

@@ -14,7 +14,7 @@ const App: FC = () => {
 
     const {
         rooms, handleSearch, data
-        , isError, isPending
+        , isError, isPending,handleRating
     } = useApp()
 
     return (
@@ -29,8 +29,8 @@ const App: FC = () => {
                     {isPending && <Loader/>}
                     {isError && <span>Error..</span>}
                     {data && rooms && rooms.map(room => <Card
-                        key={nanoid()} pic={room.url} name={room.name}
-                        country={room.description} rating={room.raiting}/>
+                        key={nanoid()} pic={room.url} name={room.name} id={room.id}
+                        country={room.description} rating={room.raiting} handleRating={handleRating}/>
                     )}
                 </Rooms>
             </main>

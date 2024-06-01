@@ -18,7 +18,7 @@ export interface Restaurant {
 export const getRestaurants = (): Promise<Restaurant[]> =>
     fetch(`${API_URL}/restaurants`).then(validateRes).then((res) => res.json())
 
-interface UpdateRestaurantRaitingArgs {
+export interface UpdateRestaurantRaitingArgs {
     id: Restaurant['id']
     raiting: Restaurant['raiting']
 }
@@ -30,4 +30,4 @@ export const updateRestaurantRating = ({
     fetch(`${API_URL}/restaurants/${id}`, {
         method: 'PATCH',
         body: JSON.stringify({raiting}),
-    }).then((res) => res.json())
+    }).then(validateRes).then((res) => res.json())
