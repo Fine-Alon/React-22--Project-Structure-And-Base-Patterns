@@ -34,6 +34,7 @@ export const useApp = () => {
     };
 
     const handleRating = ({id, raiting}: UpdateRestaurantRaitingArgs) => {
+        console.log(id,'----',raiting)
         mutate.mutate({id, raiting})
     }
 

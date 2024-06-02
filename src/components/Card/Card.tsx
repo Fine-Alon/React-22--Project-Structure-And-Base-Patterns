@@ -20,7 +20,7 @@ export const Card: FC<CardProps> = ({pic, name, country, rating, id, handleRatin
                 <h2 className="title">{name}</h2>
                 <p className="country">{country}</p>
                 <div className="rating">
-                    <Stars id={id} handleRating={handleRating} rating={rating}/>
+                    <Stars id={id} handleRating={handleRating} raiting={rating}/>
                 </div>
             </div>
         </div>

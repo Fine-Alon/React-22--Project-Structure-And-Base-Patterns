@@ -1,11 +1,17 @@
-button {
-    /* Сброс стилей */
-    all: unset;
 
-    /* Дополнительные стили по вашему выбору */
-    /* Например, добавить курсор указателя */
+.stars-container {
+    display: flex;
+    gap: 5px;
     cursor: pointer;
-}
-.stars-container{
     padding: 20px 10px 10px 0;
+}
+
+.star {
+    font-size: 24px;
+    color: lightgray;
+    transition: color 0.2s;
+}
+
+.star.filled {
+    color: gold;
 }

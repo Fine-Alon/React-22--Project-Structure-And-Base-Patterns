@@ -1,45 +1,50 @@
 import './Stars.css'
 import {FC, useState} from "react";
+import './Stars.css';
 import {UpdateRestaurantRaitingArgs} from "../../api/api.ts";
-import {StarsEditor} from "../StarsEditor";
 
 type StarsProps = {
-    rating: number
-    id: string
-    handleRating: ({id, raiting}: UpdateRestaurantRaitingArgs) => void
-}
-export const Stars: FC<StarsProps> = ({rating, id, handleRating}) => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    const totalStars = 5;
+    raiting: number;
+    id: string;
+    handleRating: ({id, raiting}: UpdateRestaurantRaitingArgs) => void;
+};
 
-    const [newRating, setNewRating] = useState(rating)
-    const [editMode, setEditMode] = useState(true)
+export const Stars: FC<StarsProps> = ({raiting, id, handleRating}) => {
+    const [hoveredRating, setHoveredRating] = useState(0);
+    const [selectedRating, setSelectedRating] = useState(raiting);
 
+    const handleMouseEnter = (raiting: number) => {
+        setHoveredRating(raiting);
+    };
+    const handleMouseLeave = () => {
+        setHoveredRating(0);
+    };
 
-    const handleClick = () => {
-        handleRating({id, raiting: newRating})
-        console.log(id)
-    }
+    const handleClick = (raiting: number) => {
+        setSelectedRating(raiting);
+        handleRating({id, raiting});
+    };
 
-    return (<button className='stars-container' onClick={handleClick}>
-            {!editMode
-                ? <>
-                    {[...Array(fullStars)].map((_, index) => (
-                        <span key={index} className="star">&#9733;</span> // Полная звезда
-                    ))}
-                    {hasHalfStar && <span className="star">&#9734;</span>} {/* Полая звезда */}
-                    {[...Array(totalStars - fullStars - (hasHalfStar ? 1 : 0))].map((_, index) => (
-                        <span key={index + fullStars + 1} className="star">&#9734;</span> // Полая звезда
-                    ))}
-                </>
-                : <StarsEditor/>
-                //     ==============     ЗВЕЗДЫ   =========
-                //     ==============     ЗВЕЗДЫ   =========
-                //     ==============     ЗВЕЗДЫ   =========
-                //     ==============     ЗВЕЗДЫ   =========
-                //     ==============     ЗВЕЗДЫ   =========
-            }
-        </button>
+    const renderStars = () => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <span
+                    key={i}
+                    className={`star ${i <= (hoveredRating || selectedRating) ? 'filled' : ''}`}
+                    onMouseEnter={() => handleMouseEnter(i)}
+                    onMouseLeave={handleMouseLeave}
+                    onClick={() => handleClick(i)}
+                > &#9733; </span>
+            );
+        }
+        return stars;
+    };
+
+    return (
+        <div className="stars-container">
+            {renderStars()}
+        </div>
     );
 };
+
